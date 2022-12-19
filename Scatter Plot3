@@ -1,1 +1,88 @@
+<!doctype html>
+<html>
+<head>
+  <!--Step 2-->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+<!--Step 2-->
+<svg width="1000" height="800"></svg>
+<script>
+  // Step 1
+  var dataset1 = [
+    [114763,11176], [272967,19193], [4033,546],
+    [11295,2101], [238537,28834], [36125,1861],
+    [245857,12717], [111369,4732],  [1240192,18542],
+    [1030700,4420],  [1267000,21477],  [923768,190886],
+    [308,4], [196712,15851],  [72300,7557], [56785,7798]
+  ];
 
+
+
+  // Step 3
+  var svg = d3.select("svg"),
+          margin = 200,
+          width = svg.attr("width") - margin, //300
+          height = svg.attr("height") - margin //200
+
+  // Step 4
+  var xScale = d3.scaleLinear().domain([0, 1500000]).range([0, width]),
+          yScale = d3.scaleLinear().domain([0, 35000]).range([height, 0]);
+
+  var g = svg.append("g")
+          .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+  // Step 5
+  // Title
+  svg.append('text')
+          .attr('x', width/2 + 100)
+          .attr('y', 100)
+          .attr('text-anchor', 'middle')
+          .style('font-family', 'TimesNewRoman')
+          .style('font-size', 20)
+          .text('Western African Regions /// Surface Area & Population');
+
+  // X label
+  svg.append('text')
+          .attr('x', width/2 + 100)
+          .attr('y', height - 5 + 150)
+          .attr('text-anchor', 'middle')
+          .style('font-family', 'TimesNewRoman')
+          .style('font-size', 12)
+          .text('Surface Area');
+
+  // Y label
+  svg.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('transform', 'translate(40,' + 400 + ')rotate(-90)')
+          .style('font-family', 'TimesNewRoman')
+          .style('font-size', 12)
+          .text('Population');
+
+  // Step 6
+  g.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(xScale));
+
+  g.append("g")
+          .call(d3.axisLeft(yScale));
+
+  // Step 7
+  svg.append('g')
+          .selectAll("dot")
+          .data(dataset1)
+          .enter()
+          .append("circle")
+          .attr("cx", function (d) { return xScale(d[0]); } )
+          .attr("cy", function (d) { return yScale(d[1]); } )
+          .attr("r", 5)
+          .attr('stroke', 'black')
+          .attr("transform", "translate(" + 100 + "," + 100 + ")")
+          .style("fill", "#Ff7f00");
+
+
+
+
+</script>
+</body>
+</html>
